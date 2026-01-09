@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareIt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">ShareLink</span>
+            </div>
+            <p class="tagline">Secure peer-to-peer file transfers, encrypted by default</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="card">
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="user-section">
+                    <div class="input-group">
+                        <label class="input-label">Username</label>
+                        <input type="text" class="input-field" placeholder="anonymous-user-7a3f" value="alice_2024">
+                    </div>
+                    <div class="status-indicator status-online">
+                        <div class="status-dot"></div>
+                        <span>Online</span>
+                    </div>
+                </div>
+                <div class="peer-info">
+                    <span class="peer-label">Your Peer ID</span>
+                    <span class="peer-id">4b7f-9a2c-e8d1-3f6b</span>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- Send/Receive Panels -->
+                <div class="panels">
+                    <!-- Send Panel -->
+                    <div class="panel panel-send">
+                        <div class="panel-header">
+                            <div class="panel-icon">↑</div>
+                            <h3 class="panel-title">Send File</h3>
+                        </div>
+                        <div class="file-drop-zone">
+                            <div class="file-icon">📁</div>
+                            <div class="file-drop-text">Drop file here or click to browse</div>
+                            <div class="file-drop-hint">Maximum file size: 2GB</div>
+                        </div>
+                    </div>
+
+                    <!-- Receive Panel -->
+                    <div class="panel panel-receive">
+                        <div class="panel-header">
+                            <div class="panel-icon">↓</div>
+                            <h3 class="panel-title">Receive File</h3>
+                        </div>
+                        <div class="empty-state">
+                            <div class="empty-icon">📭</div>
+                            <div class="empty-text">No incoming files</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternative states - shown separately for demonstration -->
+                
+                <!-- File Selected State (alternative to drop zone) -->
+                <div class="panel panel-send" style="margin-bottom: 1.5rem;">
+                    <div class="panel-header">
+                        <div class="panel-icon">↑</div>
+                        <h3 class="panel-title">Send File</h3>
+                    </div>
+                    <div class="file-selected">
+                        <div class="file-preview">PDF</div>
+                        <div class="file-details">
+                            <div class="file-name">Project_Proposal_Final_v3.pdf</div>
+                            <div class="file-meta">2.4 MB • Ready to send</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn-icon" title="Remove">✕</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incoming File State (alternative to empty state) -->
+                <div class="panel panel-receive" style="margin-bottom: 1.5rem;">
+                    <div class="panel-header">
+                        <div class="panel-icon">↓</div>
+                        <h3 class="panel-title">Receive File</h3>
+                    </div>
+                    <div class="incoming-file">
+                        <div class="incoming-header">
+                            <div class="incoming-from">
+                                From <span class="incoming-sender">bob_dev</span>
+                            </div>
+                        </div>
+                        <div class="file-selected">
+                            <div class="file-preview">ZIP</div>
+                            <div class="file-details">
+                                <div class="file-name">website-assets-2024.zip</div>
+                                <div class="file-meta">156.7 MB</div>
+                            </div>
+                        </div>
+                        <div class="incoming-actions" style="margin-top: 1rem;">
+                            <button class="btn-sm btn-accept">Accept</button>
+                            <button class="btn-sm btn-decline">Decline</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <div class="progress-status">Transferring: design_mockups.sketch</div>
+                        <div class="progress-percent">67%</div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 67%;"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span>45.2 MB / 67.8 MB</span>
+                        <span>~12 seconds remaining</span>
+                    </div>
+                </div>
+
+                <!-- Status Messages -->
+                <div class="status-messages">
+                    <div class="status-message status-success">
+                        <div class="status-message-icon">✓</div>
+                        <div class="status-message-content">
+                            <div class="status-message-text">File sent successfully to bob_dev</div>
+                            <div class="status-message-time">2 minutes ago</div>
+                        </div>
+                    </div>
+
+                    <div class="status-message status-info">
+                        <div class="status-message-icon">i</div>
+                        <div class="status-message-content">
+                            <div class="status-message-text">Connected to peer network</div>
+                            <div class="status-message-time">5 minutes ago</div>
+                        </div>
+                    </div>
+
+                    <div class="status-message status-error">
+                        <div class="status-message-icon">!</div>
+                        <div class="status-message-content">
+                            <div class="status-message-text">Transfer failed: connection lost</div>
+                            <div class="status-message-time">8 minutes ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary">Cancel Transfer</button>
+                    <button class="btn btn-primary">Send File</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="privacy-badge">
+                <span class="privacy-icon">🔒</span>
+                <span>End-to-end encrypted • No data stored on servers</span>
+            </div>
+            <p style="margin-top: 1rem;">All transfers are direct between peers and fully encrypted</p>
+        </div>
+    </div>
+</body>
+</html>
