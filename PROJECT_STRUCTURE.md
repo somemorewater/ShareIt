@@ -1,56 +1,56 @@
 # ShareIt - Complete P2P File Sharing Application
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 shareit-app/
 │
-├── 📄 server.js              # WebRTC Signaling Server
+├── ├── server.js              # WebRTC Signaling Server
 │   ├── Express HTTP server
 │   ├── Socket.IO for signaling
 │   ├── User registration & discovery
 │   └── WebRTC offer/answer/ICE relay
 │
-├── 📦 package.json           # Dependencies & Scripts
+├── ├── package.json           # Dependencies & Scripts
 │   ├── express: Web server
 │   ├── socket.io: Real-time communication
 │   ├── cors: Cross-origin support
 │   └── dotenv: Environment variables
 │
-├── 🔐 .env                   # Environment Configuration
+├── ├── .env                   # Environment Configuration
 │   └── PORT=3000
 │
-├── 📝 README.md              # Complete Documentation
+├── ├── README.md              # Complete Documentation
 │   ├── Installation guide
 │   ├── Usage instructions
 │   ├── Architecture explanation
 │   ├── Deployment guide
 │   └── Troubleshooting
 │
-├── 🚫 .gitignore             # Git Ignore Rules
+├── ├── .gitignore             # Git Ignore Rules
 │
-└── 📁 public/                # Frontend Files
+└── ├── public/                # Frontend Files
     │
-    ├── 🌐 index.html         # Main HTML
+    ├── ├── index.html         # Main HTML
     │   ├── User interface
     │   ├── Send/Receive panels
     │   ├── Progress indicators
     │   └── Status messages
     │
-    ├── 🎨 style.css          # Complete Styling
+    ├── ├── style.css          # Complete Styling
     │   ├── Modern glassmorphism design
     │   ├── Responsive layout
     │   ├── Animations
     │   └── Status indicators
     │
-    ├── 🔧 app.js             # Main Application Logic
+    ├── ├── app.js             # Main Application Logic
     │   ├── Socket.IO client connection
     │   ├── UI event handlers
     │   ├── File selection & validation
     │   ├── Progress tracking
     │   └── Download handling
     │
-    └── 🌐 webrtc.js          # WebRTC Implementation
+    └── ├── webrtc.js          # WebRTC Implementation
         ├── RTCPeerConnection management
         ├── DataChannel setup
         ├── Offer/Answer handling
@@ -60,7 +60,7 @@ shareit-app/
 
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Install Dependencies
 ```bash
@@ -85,7 +85,7 @@ npm start
 http://localhost:3000
 ```
 
-## 🔑 Key Components
+## Key Components
 
 ### Server Side (server.js)
 - **Signaling Server**: Relays WebRTC signaling messages
@@ -167,7 +167,7 @@ Sender                  DataChannel                 Receiver
   |                          |                    [Download]
 ```
 
-## 🔒 Security Features
+## Security Features
 
 1. **End-to-End Encryption**: WebRTC's DTLS-SRTP
 2. **No Server Storage**: Files never stored on server
@@ -175,7 +175,7 @@ Sender                  DataChannel                 Receiver
 4. **HTTPS Ready**: Can be easily upgraded to HTTPS
 5. **Peer Verification**: Explicit recipient selection
 
-## 📊 Technical Specifications
+## Technical Specifications
 
 - **Chunk Size**: 16 KB (configurable)
 - **Max File Size**: Limited by browser memory (typically 2GB)
@@ -185,7 +185,7 @@ Sender                  DataChannel                 Receiver
 - **Connection Timeout**: Browser default (~30s)
 - **Progress Updates**: Real-time (per chunk)
 
-## 🛠️ Configuration
+## Configuration
 
 ### Change Port
 Edit `.env`:
@@ -214,7 +214,7 @@ Edit `public/webrtc.js`:
 this.chunkSize = 32768; // 32 KB
 ```
 
-## 🚀 Deployment Options
+## Deployment Options
 
 ### Option 1: VPS (DigitalOcean, AWS, etc.)
 ```bash
@@ -253,7 +253,7 @@ docker build -t shareit .
 docker run -p 3000:3000 shareit
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Issue: Can't connect to peers
 **Solution**: Add TURN server for NAT traversal
@@ -267,17 +267,17 @@ docker run -p 3000:3000 shareit
 ### Issue: Browser crashes
 **Solution**: Reduce chunk size, limit max file size
 
-## 📱 Browser Compatibility
+## Browser Compatibility
 
 | Browser | Version | Status |
 |---------|---------|--------|
-| Chrome  | 80+     | ✅ Full Support |
-| Firefox | 75+     | ✅ Full Support |
-| Edge    | 80+     | ✅ Full Support |
-| Safari  | 14+     | ⚠️ Limited Support |
-| IE      | Any     | ❌ Not Supported |
+| Chrome  | 80+     | Full Support |
+| Firefox | 75+     | Full Support |
+| Edge    | 80+     | Full Support |
+| Safari  | 14+     | Limited Support |
+| IE      | Any     | Not Supported |
 
-## 🎯 Future Enhancements
+## Future Enhancements
 
 - [ ] Multiple file transfers
 - [ ] Folder transfer
@@ -288,11 +288,11 @@ docker run -p 3000:3000 shareit
 - [ ] Video/audio calls
 - [ ] Screen sharing
 
-## 📄 License
+## License
 
 MIT License - Free to use and modify
 
-## 🤝 Contributing
+## Contributing
 
 Pull requests welcome! Follow standard coding practices.
 
