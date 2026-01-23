@@ -4,7 +4,7 @@ A secure, peer-to-peer file sharing application built with WebRTC, Socket.IO, an
 
 ## Features
 
-**Direct P2P Transfer** - Files transfer directly between peers without server storage  
+**Direct P2P Transfer** - Files transfer directly between peers without db storage  
 **End-to-End Encryption** - WebRTC provides built-in encryption  
 **Real-time Progress** - Live transfer progress with speed and time estimates  
 **Chunked Transfer** - Handles large files efficiently with 16KB chunks  
@@ -268,11 +268,11 @@ const config = {
 
 ## Browser Support
 
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Edge 80+
-- ✅ Safari 14+ (with limitations)
-- ❌ IE (not supported)
+- Chrome 80+
+- Firefox 75+
+- Edge 80+
+- Safari 14+ (with limitations)
+- IE (not supported)
 
 ## Future Enhancements
 
