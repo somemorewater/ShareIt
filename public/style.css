@@ -3,7 +3,7 @@
             --bg-secondary: #151920;
             --bg-tertiary: #1c2128;
             --accent-primary: #00e5cc;
-            --accent-secondary: #7c3aed;
+            --accent-secondary: #358cc3;
             --text-primary: #e8eaed;
             --text-secondary: #9ca3af;
             --text-tertiary: #6b7280;
@@ -96,7 +96,6 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -137,7 +136,7 @@
         .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background: var(--accent-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
