@@ -13,6 +13,7 @@ let currentTransfer = null;
 
 // DOM Elements
 const usernameInput = document.getElementById('username-input');
+const enterBtn = document.getElementById("enter-username-btn");
 const statusIndicator = document.getElementById('status-indicator');
 const statusText = document.getElementById('status-text');
 const peerIdDisplay = document.getElementById('peer-id-display');
@@ -47,14 +48,19 @@ function init() {
   setupEventListeners();
 }
 
+function registerUser() {
+  const username = usernameInput.value.trim();
+  if (!username) return;
+  socket.emit("register", username);
+}
+
 // Setup event listeners
 function setupEventListeners() {
   // Username input
-  usernameInput.addEventListener('change', () => {
-    const username = usernameInput.value.trim();
-    if (username) {
-      socket.emit('register', username);
-    }
+  enterBtn.addEventListener("click", registerUser);
+
+  usernameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") registerUser();
   });
 
   // File input

@@ -1,162 +1,209 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShareIt - P2P File Transfer</title>
-    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div><img class="logo-icon" src="./img/logo.png" alt=""></div>
-                <span class="logo-text">ShareIt</span>
+      <div class="header">
+        <div class="logo">
+          <div><img class="logo-icon" src="./img/logo.png" alt="" /></div>
+          <span class="logo-text">ShareIt</span>
+        </div>
+        <p class="tagline">
+          Secure peer-to-peer file transfers, encrypted by default
+        </p>
+      </div>
+
+      <!-- Main Card -->
+      <div class="card">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="user-section">
+            <div class="input-group">
+              <label class="input-label">Username</label>
+              <div class="username-wrap">
+                <input
+                  type="text"
+                  id="username-input"
+                  class="input-field"
+                  placeholder="Enter username"
+                />
+                <button id="enter-username-btn" class="enter-btn">Enter</button>
+              </div>
             </div>
-            <p class="tagline">Secure peer-to-peer file transfers, encrypted by default</p>
+            <div id="status-indicator" class="status-indicator status-offline">
+              <div class="status-dot"></div>
+              <span id="status-text">Connecting...</span>
+            </div>
+          </div>
+          <div class="peer-info">
+            <span class="peer-label">Your Peer ID</span>
+            <span id="peer-id-display" class="peer-id">Connecting...</span>
+          </div>
         </div>
 
-        <!-- Main Card -->
-        <div class="card">
-            <!-- Card Header -->
-            <div class="card-header">
-                <div class="user-section">
-                    <div class="input-group">
-                        <label class="input-label">Username</label>
-                        <input type="text" id="username-input" class="input-field" placeholder="Enter username" value="">
-                    </div>
-                    <div id="status-indicator" class="status-indicator status-offline">
-                        <div class="status-dot"></div>
-                        <span id="status-text">Connecting...</span>
-                    </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <!-- Send/Receive Panels -->
+          <div class="panels">
+            <!-- Send Panel -->
+            <div class="panel panel-send">
+              <div class="panel-header">
+                <div class="panel-icon">↑</div>
+                <h3 class="panel-title">Send File</h3>
+              </div>
+
+              <!-- File Drop Zone -->
+              <div id="file-drop-zone" class="file-drop-zone">
+                <div class="file-icon">📁</div>
+                <div class="file-drop-text">
+                  Drop file here or click to browse
                 </div>
-                <div class="peer-info">
-                    <span class="peer-label">Your Peer ID</span>
-                    <span id="peer-id-display" class="peer-id">Connecting...</span>
+                <div class="file-drop-hint">Maximum file size: 2GB</div>
+                <input type="file" id="file-input" style="display: none" />
+              </div>
+
+              <!-- File Selected View (hidden by default) -->
+              <div
+                id="file-selected-view"
+                class="file-selected"
+                style="display: none"
+              >
+                <div class="file-preview">FILE</div>
+                <div class="file-details">
+                  <div id="file-name" class="file-name"></div>
+                  <div id="file-size" class="file-meta"></div>
                 </div>
+                <div class="file-actions">
+                  <button id="remove-file-btn" class="btn-icon" title="Remove">
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <!-- Recipient Selection -->
+              <div style="margin-top: 1rem">
+                <label class="input-label">Send to:</label>
+                <select id="recipient-select" class="input-field">
+                  <option value="">Select recipient...</option>
+                </select>
+              </div>
             </div>
 
-            <!-- Card Body -->
-            <div class="card-body">
-                <!-- Send/Receive Panels -->
-                <div class="panels">
-                    <!-- Send Panel -->
-                    <div class="panel panel-send">
-                        <div class="panel-header">
-                            <div class="panel-icon">↑</div>
-                            <h3 class="panel-title">Send File</h3>
-                        </div>
-                        
-                        <!-- File Drop Zone -->
-                        <div id="file-drop-zone" class="file-drop-zone">
-                            <div class="file-icon">📁</div>
-                            <div class="file-drop-text">Drop file here or click to browse</div>
-                            <div class="file-drop-hint">Maximum file size: 2GB</div>
-                            <input type="file" id="file-input" style="display: none;">
-                        </div>
+            <!-- Receive Panel -->
+            <div class="panel panel-receive">
+              <div class="panel-header">
+                <div class="panel-icon">↓</div>
+                <h3 class="panel-title">Receive File</h3>
+              </div>
 
-                        <!-- File Selected View (hidden by default) -->
-                        <div id="file-selected-view" class="file-selected" style="display: none;">
-                            <div class="file-preview">FILE</div>
-                            <div class="file-details">
-                                <div id="file-name" class="file-name"></div>
-                                <div id="file-size" class="file-meta"></div>
-                            </div>
-                            <div class="file-actions">
-                                <button id="remove-file-btn" class="btn-icon" title="Remove">✕</button>
-                            </div>
-                        </div>
+              <!-- Empty State -->
+              <div id="empty-state" class="empty-state">
+                <div class="empty-icon">📭</div>
+                <div class="empty-text">No incoming files</div>
+              </div>
 
-                        <!-- Recipient Selection -->
-                        <div style="margin-top: 1rem;">
-                            <label class="input-label">Send to:</label>
-                            <select id="recipient-select" class="input-field">
-                                <option value="">Select recipient...</option>
-                            </select>
-                        </div>
+              <!-- Incoming File View (hidden by default) -->
+              <div id="incoming-file-view" style="display: none">
+                <div class="incoming-file">
+                  <div class="incoming-header">
+                    <div class="incoming-from">
+                      From
+                      <span
+                        id="incoming-sender-name"
+                        class="incoming-sender"
+                      ></span>
                     </div>
-
-                    <!-- Receive Panel -->
-                    <div class="panel panel-receive">
-                        <div class="panel-header">
-                            <div class="panel-icon">↓</div>
-                            <h3 class="panel-title">Receive File</h3>
-                        </div>
-                        
-                        <!-- Empty State -->
-                        <div id="empty-state" class="empty-state">
-                            <div class="empty-icon">📭</div>
-                            <div class="empty-text">No incoming files</div>
-                        </div>
-
-                        <!-- Incoming File View (hidden by default) -->
-                        <div id="incoming-file-view" style="display: none;">
-                            <div class="incoming-file">
-                                <div class="incoming-header">
-                                    <div class="incoming-from">
-                                        From <span id="incoming-sender-name" class="incoming-sender"></span>
-                                    </div>
-                                </div>
-                                <div class="file-selected">
-                                    <div class="file-preview">FILE</div>
-                                    <div class="file-details">
-                                        <div id="incoming-file-name" class="file-name"></div>
-                                        <div id="incoming-file-size" class="file-meta"></div>
-                                    </div>
-                                </div>
-                                <div class="incoming-actions" style="margin-top: 1rem;">
-                                    <button id="accept-file-btn" class="btn-sm btn-accept">Accept</button>
-                                    <button id="decline-file-btn" class="btn-sm btn-decline">Decline</button>
-                                </div>
-                            </div>
-                        </div>
+                  </div>
+                  <div class="file-selected">
+                    <div class="file-preview">FILE</div>
+                    <div class="file-details">
+                      <div id="incoming-file-name" class="file-name"></div>
+                      <div id="incoming-file-size" class="file-meta"></div>
                     </div>
+                  </div>
+                  <div class="incoming-actions" style="margin-top: 1rem">
+                    <button id="accept-file-btn" class="btn-sm btn-accept">
+                      Accept
+                    </button>
+                    <button id="decline-file-btn" class="btn-sm btn-decline">
+                      Decline
+                    </button>
+                  </div>
                 </div>
-
-                <!-- Progress Section (hidden by default) -->
-                <div id="progress-section" class="progress-section" style="display: none;">
-                    <div class="progress-header">
-                        <div id="progress-status" class="progress-status"></div>
-                        <div id="progress-percent" class="progress-percent">0%</div>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
-                    </div>
-                    <div id="progress-details" class="progress-details">
-                        <span>Preparing transfer...</span>
-                    </div>
-                </div>
-
-                <!-- Status Messages -->
-                <div id="status-messages" class="status-messages">
-                    <!-- Messages will be added dynamically -->
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button id="cancel-transfer-btn" class="btn btn-secondary" style="display: none;">Cancel Transfer</button>
-                    <button id="send-file-btn" class="btn btn-primary">Send File</button>
-                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Progress Section (hidden by default) -->
+          <div
+            id="progress-section"
+            class="progress-section"
+            style="display: none"
+          >
+            <div class="progress-header">
+              <div id="progress-status" class="progress-status"></div>
+              <div id="progress-percent" class="progress-percent">0%</div>
+            </div>
+            <div class="progress-bar-container">
+              <div
+                id="progress-bar"
+                class="progress-bar"
+                style="width: 0%"
+              ></div>
+            </div>
+            <div id="progress-details" class="progress-details">
+              <span>Preparing transfer...</span>
+            </div>
+          </div>
+
+          <!-- Status Messages -->
+          <div id="status-messages" class="status-messages">
+            <!-- Messages will be added dynamically -->
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button
+              id="cancel-transfer-btn"
+              class="btn btn-secondary"
+              style="display: none"
+            >
+              Cancel Transfer
+            </button>
+            <button id="send-file-btn" class="btn btn-primary">
+              Send File
+            </button>
+          </div>
         </div>
+      </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <div class="privacy-badge">
-                <span class="privacy-icon">🔒</span>
-                <span>End-to-end encrypted • No data stored on servers</span>
-            </div>
-            <p style="margin-top: 1rem;">All transfers are direct between peers and fully encrypted</p>
+      <!-- Footer -->
+      <div class="footer">
+        <div class="privacy-badge">
+          <span class="privacy-icon">🔒</span>
+          <span>End-to-end encrypted • No data stored on servers</span>
         </div>
+        <p style="margin-top: 1rem">
+          All transfers are direct between peers and fully encrypted
+        </p>
+      </div>
     </div>
 
     <!-- Scripts -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="./webrtc.js"></script>
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>
