@@ -124,7 +124,7 @@ http://localhost:3000
   - Progress tracking
   - Auto-download
 
-## 🌊 Data Flow
+## Data Flow
 
 ### Connection Establishment
 ```
