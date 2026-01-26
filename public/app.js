@@ -6,6 +6,7 @@ let currentUser = {
   peerId: null,
   username: null
 };
+let currentRecipientUsername = null;
 
 let webrtcManager = null;
 let selectedFile = null;
@@ -24,7 +25,7 @@ const fileNameDisplay = document.getElementById('file-name');
 const fileSizeDisplay = document.getElementById('file-size');
 const removeFileBtn = document.getElementById('remove-file-btn');
 const sendFileBtn = document.getElementById('send-file-btn');
-const recipientSelect = document.getElementById('recipient-select');
+const recipientInput = document.getElementById("recipient-input");
 const incomingFileView = document.getElementById('incoming-file-view');
 const incomingSenderName = document.getElementById('incoming-sender-name');
 const incomingFileName = document.getElementById('incoming-file-name');
@@ -173,15 +174,17 @@ function clearFileSelection() {
 // Send file
 async function sendFile() {
   if (!selectedFile) {
-    addStatusMessage('No file selected', 'error');
+    addStatusMessage("No file selected", "error");
     return;
   }
 
-  const recipientId = recipientSelect.value;
+  const recipientId = recipientInput.value.trim();
   if (!recipientId) {
-    addStatusMessage('Please select a recipient', 'error');
+    addStatusMessage("Please enter a recipient username", "error");
     return;
   }
+
+  currentRecipientUsername = recipientId;
 
   try {
     // Create WebRTC connection
@@ -203,7 +206,7 @@ async function sendFile() {
     // Create offer
     await webrtcManager.createOffer(recipientId, selectedFile);
     
-    addStatusMessage(`Connecting to ${recipientSelect.options[recipientSelect.selectedIndex].text}...`, 'info');
+    addStatusMessage(`Connecting to ${recipientId}...`, "info");
     
   } catch (error) {
     console.error('Error sending file:', error);
@@ -220,7 +223,7 @@ async function startFileTransfer() {
       updateProgress(progress);
     });
     
-    addStatusMessage(`File sent successfully to ${recipientSelect.options[recipientSelect.selectedIndex].text}`, 'success');
+    addStatusMessage(`File sent successfully to ${currentRecipientUsername}`, 'success');
     hideProgress();
     clearFileSelection();
     
@@ -344,20 +347,6 @@ function downloadFile(fileData) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-// Update recipient list
-function updateRecipientList(users) {
-  recipientSelect.innerHTML = '<option value="">Select recipient...</option>';
-  
-  users.forEach(user => {
-    if (user.peerId !== currentUser.peerId) {
-      const option = document.createElement('option');
-      option.value = user.peerId;
-      option.textContent = user.username;
-      recipientSelect.appendChild(option);
-    }
-  });
 }
 
 // Update status indicator
