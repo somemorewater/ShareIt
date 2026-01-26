@@ -157,7 +157,7 @@ Sender                  Signaling Server              Receiver
    ```bash
    # On server
    git clone <repo>
-   cd shareit-app
+   cd shareit
    npm install
    npm start
    ```
