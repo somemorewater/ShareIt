@@ -93,7 +93,7 @@ shareit-app/
 
 1. Enter your username
 2. Select or drag a file to the "Send File" panel
-3. Choose a recipient from the dropdown
+3. Enter the recipient username to select user
 4. Click "Send File"
 5. Wait for connection and transfer to complete
 
