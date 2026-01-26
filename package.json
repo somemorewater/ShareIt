@@ -1,14 +1,14 @@
 {
   "name": "shareit",
   "version": "1.0.0",
-  "description": "P2P file sharing with WebRTC",
+  "description": "P2P file sharing with WebRTC and Socket.io",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": ["webrtc", "p2p", "file-sharing", "socket.io"],
-  "author": "",
+  "author": "water",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
