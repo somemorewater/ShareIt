@@ -71,7 +71,6 @@ shareit-app/
    ```bash
    # Edit .env file
    PORT=3000
-   NODE_ENV=development
    ```
 
 3. **Start the server:**
