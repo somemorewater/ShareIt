@@ -17,7 +17,7 @@ const io = new Server(server, {
     origin: '*',
     methods: ['GET', 'POST']
   },
-  maxHttpBufferSize: 1e8 // 100 MB for signaling messages
+  maxHttpBufferSize: 1e8 
 });
 
 // Store connected users
@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
       username: users.get(socket.id).username
     });
     
-    // Broadcast updated user list to all clients
     broadcastUserList();
   });
 
