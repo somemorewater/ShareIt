@@ -24,43 +24,34 @@ class WebRTCManager {
     this.onFileReceived = null;
     this.onProgress = null;
     this.onConnectionStateChange = null;
-    
+
     // File transfer state
     this.fileBuffer = [];
     this.receivedSize = 0;
     this.fileMetadata = null;
-    this.chunkSize = 16384; 
+    this.chunkSize = 16384;
   }
 
   // Create peer connection for sender
-  async createOffer(peerId, file) {
-    try {
-      this.peerConnection = new RTCPeerConnection(config);
-      
-      // Create data channel for file transfer
-      this.dataChannel = this.peerConnection.createDataChannel('fileTransfer', {
-        ordered: true
-      });
-      
-      this.setupDataChannel();
-      this.setupIceHandlers(peerId);
+  async createOffer(peerUsername, file) {
+    this.peerConnection = new RTCPeerConnection(config);
 
-      // Create and send offer
-      const offer = await this.peerConnection.createOffer();
-      await this.peerConnection.setLocalDescription(offer);
-      
-      this.socket.emit('offer', {
-        to: peerId,
-        offer: offer,
-        filename: file.name,
-        filesize: file.size
-      });
+    this.dataChannel = this.peerConnection.createDataChannel("fileTransfer", {
+      ordered: true,
+    });
 
-      return true;
-    } catch (error) {
-      console.error('Error creating offer:', error);
-      throw error;
-    }
+    this.setupDataChannel();
+    this.setupIceHandlers();
+
+    const offer = await this.peerConnection.createOffer();
+    await this.peerConnection.setLocalDescription(offer);
+
+    this.socket.emit("offer", {
+      toUsername: peerUsername,
+      offer,
+      filename: file.name,
+      filesize: file.size,
+    });
   }
 
   // Handle incoming offer (receiver)
@@ -68,7 +59,7 @@ class WebRTCManager {
     try {
       this.fileMetadata = fileMetadata;
       this.peerConnection = new RTCPeerConnection(config);
-      
+
       // Set up data channel handler
       this.peerConnection.ondatachannel = (event) => {
         this.dataChannel = event.channel;
@@ -77,18 +68,20 @@ class WebRTCManager {
 
       this.setupIceHandlers(fromPeerId);
 
-      await this.peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+      await this.peerConnection.setRemoteDescription(
+        new RTCSessionDescription(offer),
+      );
       const answer = await this.peerConnection.createAnswer();
       await this.peerConnection.setLocalDescription(answer);
-      
-      this.socket.emit('answer', {
+
+      this.socket.emit("answer", {
         to: fromPeerId,
-        answer: answer
+        answer: answer,
       });
 
       return true;
     } catch (error) {
-      console.error('Error handling offer:', error);
+      console.error("Error handling offer:", error);
       throw error;
     }
   }
@@ -96,10 +89,12 @@ class WebRTCManager {
   // Handle incoming answer (sender)
   async handleAnswer(answer) {
     try {
-      await this.peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+      await this.peerConnection.setRemoteDescription(
+        new RTCSessionDescription(answer),
+      );
       return true;
     } catch (error) {
-      console.error('Error handling answer:', error);
+      console.error("Error handling answer:", error);
       throw error;
     }
   }
@@ -108,10 +103,12 @@ class WebRTCManager {
   async handleIceCandidate(candidate) {
     try {
       if (candidate) {
-        await this.peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        await this.peerConnection.addIceCandidate(
+          new RTCIceCandidate(candidate),
+        );
       }
     } catch (error) {
-      console.error('Error adding ICE candidate:', error);
+      console.error("Error adding ICE candidate:", error);
     }
   }
 
@@ -119,15 +116,15 @@ class WebRTCManager {
   setupIceHandlers(peerId) {
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        this.socket.emit('ice-candidate', {
+        this.socket.emit("ice-candidate", {
           to: peerId,
-          candidate: event.candidate
+          candidate: event.candidate,
         });
       }
     };
 
     this.peerConnection.onconnectionstatechange = () => {
-      console.log('Connection state:', this.peerConnection.connectionState);
+      console.log("Connection state:", this.peerConnection.connectionState);
       if (this.onConnectionStateChange) {
         this.onConnectionStateChange(this.peerConnection.connectionState);
       }
@@ -136,7 +133,7 @@ class WebRTCManager {
 
   // Setup data channel
   setupDataChannel() {
-    this.dataChannel.binaryType = 'arraybuffer';
+    this.dataChannel.binaryType = "arraybuffer";
 
     this.dataChannel.onopen = () => {
       console.log("Data channel opened");
@@ -146,7 +143,7 @@ class WebRTCManager {
     };
 
     this.dataChannel.onclose = () => {
-      console.log('Data channel closed');
+      console.log("Data channel closed");
     };
 
     this.dataChannel.onmessage = (event) => {
@@ -154,13 +151,13 @@ class WebRTCManager {
     };
 
     this.dataChannel.onerror = (error) => {
-      console.error('Data channel error:', error);
+      console.error("Data channel error:", error);
     };
   }
 
   // Handle incoming data channel messages
   handleDataChannelMessage(data) {
-    if (typeof data === 'string') {
+    if (typeof data === "string") {
       // Metadata message
       this.fileMetadata = JSON.parse(data);
       this.fileBuffer = [];
@@ -169,14 +166,14 @@ class WebRTCManager {
       // File chunk
       this.fileBuffer.push(data);
       this.receivedSize += data.byteLength;
-      
+
       // Update progress
       if (this.onProgress && this.fileMetadata) {
         const progress = (this.receivedSize / this.fileMetadata.size) * 100;
         this.onProgress({
           loaded: this.receivedSize,
           total: this.fileMetadata.size,
-          percent: progress
+          percent: progress,
         });
       }
 
@@ -190,8 +187,8 @@ class WebRTCManager {
   // Send file through data channel
   async sendFile(file, progressCallback) {
     return new Promise((resolve, reject) => {
-      if (!this.dataChannel || this.dataChannel.readyState !== 'open') {
-        reject(new Error('Data channel not ready'));
+      if (!this.dataChannel || this.dataChannel.readyState !== "open") {
+        reject(new Error("Data channel not ready"));
         return;
       }
 
@@ -199,7 +196,7 @@ class WebRTCManager {
       const metadata = {
         name: file.name,
         size: file.size,
-        type: file.type
+        type: file.type,
       };
       this.dataChannel.send(JSON.stringify(metadata));
 
@@ -211,13 +208,13 @@ class WebRTCManager {
         if (event.target.readyState === FileReader.DONE) {
           this.dataChannel.send(event.target.result);
           offset += event.target.result.byteLength;
-          
+
           // Update progress
           if (progressCallback) {
             progressCallback({
               loaded: offset,
               total: file.size,
-              percent: (offset / file.size) * 100
+              percent: (offset / file.size) * 100,
             });
           }
 
@@ -225,14 +222,14 @@ class WebRTCManager {
           if (offset < file.size) {
             readSlice(offset);
           } else {
-            console.log('File sent successfully');
+            console.log("File sent successfully");
             resolve();
           }
         }
       };
 
       reader.onerror = (error) => {
-        console.error('Error reading file:', error);
+        console.error("Error reading file:", error);
         reject(error);
       };
 
@@ -248,13 +245,13 @@ class WebRTCManager {
   // Assemble received file
   assembleFile() {
     const blob = new Blob(this.fileBuffer, { type: this.fileMetadata.type });
-    
+
     if (this.onFileReceived) {
       this.onFileReceived({
         file: blob,
         name: this.fileMetadata.name,
         size: this.fileMetadata.size,
-        type: this.fileMetadata.type
+        type: this.fileMetadata.type,
       });
     }
 

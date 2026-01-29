@@ -45,16 +45,19 @@ io.on('connection', (socket) => {
   });
 
   // WebRTC signaling - Offer
-  socket.on('offer', ({ to, offer, filename, filesize }) => {
-    console.log(`Offer from ${socket.id} to ${to}`);
-    io.to(to).emit('offer', {
+  socket.on("offer", ({ toUsername, offer, filename, filesize }) => {
+    const target = [...users.values()].find((u) => u.username === toUsername);
+    if (!target) return;
+
+    io.to(target.socketId).emit("offer", {
       from: socket.id,
       fromUsername: users.get(socket.id)?.username,
       offer,
       filename,
-      filesize
+      filesize,
     });
   });
+
 
   // WebRTC signaling - Answer
   socket.on('answer', ({ to, answer }) => {
