@@ -118,9 +118,9 @@ socket.on('registered', (data) => {
   socket.emit('get-users');
 });
 
-socket.on('users-updated', (users) => {
-  updateRecipientList(users);
-});
+// socket.on('users-updated', (users) => {
+//   updateRecipientList(users);
+// });
 
 socket.on('offer', async ({ from, fromUsername, offer, filename, filesize }) => {
   // Show incoming file request
