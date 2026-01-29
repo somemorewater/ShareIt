@@ -192,7 +192,7 @@ async function sendFile() {
     
     // Setup callbacks
     webrtcManager.onDataChannelOpen = () => {
-      startFileTransfer(); // ✅ only fires when channel is truly ready
+      startFileTransfer();
     };
 
     webrtcManager.onConnectionStateChange = (state) => {

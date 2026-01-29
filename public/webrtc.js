@@ -29,7 +29,7 @@ class WebRTCManager {
     this.fileBuffer = [];
     this.receivedSize = 0;
     this.fileMetadata = null;
-    this.chunkSize = 16384; // 16 KB chunks
+    this.chunkSize = 16384; 
   }
 
   // Create peer connection for sender
