@@ -1,4 +1,4 @@
-# ShareIt - P2P File Sharing with WebRTC
+# ShareIt - P2P File Sharing with Socket.io and WebRTC
 
 A secure, peer-to-peer file sharing application built with WebRTC, Socket.IO, and Node.js. Transfer files directly between browsers with end-to-end encryption.
 
