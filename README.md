@@ -32,7 +32,7 @@ A secure, peer-to-peer file sharing application built with WebRTC, Socket.IO, an
 3. **Frontend** (`public/app.js`)
    - User interface logic
    - Socket.IO client
-   - File handling and download
+   - File handling(uploads and downloads)
    - Progress updates
 
 ## File Structure
