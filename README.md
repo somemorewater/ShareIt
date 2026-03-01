@@ -156,7 +156,7 @@ Sender                  Signaling Server              Receiver
 1. **Deploy to VPS:**
    ```bash
    # On server
-   git clone ```https://github.com/somemorewater/shareit.git```
+   git clone https://github.com/somemorewater/shareit.git
    cd shareit
    npm install
    npm start
