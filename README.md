@@ -145,7 +145,7 @@ Sender                  Signaling Server              Receiver
 ## Security
 
 - **End-to-End Encryption**: WebRTC uses DTLS-SRTP
-- **No Server Storage**: Files never touch the server
+- **No Database Storage**: Files never touch the DB
 - **Peer Verification**: Users select recipients explicitly
 - **Secure Signaling**: Can be upgraded to HTTPS/WSS
 
