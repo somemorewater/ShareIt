@@ -20,7 +20,7 @@ A secure, peer-to-peer file sharing application built with WebRTC, Socket.IO, an
 1. **Signaling Server** (`server.js`)
    - Express.js HTTP server
    - Socket.IO for WebRTC signaling
-   - User registration and discovery
+   - User discovery
    - Relay ICE candidates and SDP offers/answers
 
 2. **WebRTC Manager** (`public/webrtc.js`)
