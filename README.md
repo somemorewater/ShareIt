@@ -70,7 +70,7 @@ shareit-app/
 2. **Configure environment (optional):**
    ```bash
    # Edit .env file
-   PORT=3000
+   PORT = 3000
    ```
 
 3. **Start the server:**
