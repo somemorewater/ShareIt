@@ -54,7 +54,7 @@ shareit-app/
 ## Installation
 
 ### Prerequisites
-- Node.js 16+ and npm/pnpm/yarn
+- Node.js and npm/pnpm/yarn
 
 ### Steps
 
