@@ -7,7 +7,6 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration
 app.use(cors());
 app.use(express.static('public'));
 
