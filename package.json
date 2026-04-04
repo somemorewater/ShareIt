@@ -1,6 +1,6 @@
 {
   "name": "shareit",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "P2P file sharing with WebRTC and Socket.io",
   "main": "server.js",
   "scripts": {
