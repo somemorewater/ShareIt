@@ -10,7 +10,7 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(express.static('public'));
 
-// Socket.IO setup
+// Socket.IO
 const io = new Server(server, {
   cors: {
     origin: '*',
